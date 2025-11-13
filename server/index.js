@@ -7,7 +7,11 @@ const port = 5000;
 
 // Middleware setup
 const corsOptions = {
-  origin: 'https://job-portal-13-11-2025.onrender.com',  // React app is assumed to run on this port
+  origin: 'https://insta-clone-13-10-2025.onrender.com', 
+  
+  
+  
+  // React app is assumed to run on this port
   methods: 'GET, POST, PUT, DELETE',  // Allowed HTTP methods
   // allowedHeaders: 'Content-Type, Authorization',  // Allowed headers
 };

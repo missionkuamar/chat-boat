@@ -6,7 +6,7 @@ const App = () => {
   const [error, setError] = useState('');  // Store the error message, if any
 
   useEffect(() => {
-    axios.get('https://job-portal-13-11-2025.onrender.com/api/message')  // API endpoint for backend message
+    axios.get('https://insta-clone-13-10-2025.onrender.com/api/message')  // API endpoint for backend message
       .then(response => {
         console.log(response);
         setMessage(response.data.message);  // Update the state with the message from the backend
