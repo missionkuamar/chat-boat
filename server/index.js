@@ -7,7 +7,7 @@ const port = 5000;
 
 // Middleware setup
 const corsOptions = {
-  origin: 'https://insta-clone-13-10-2025.onrender.com', 
+  origin: 'https://chat-boat-jfcy.onrender.com', 
   
   
   
