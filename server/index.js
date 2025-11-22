@@ -1,30 +1,30 @@
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
+import express from "express";
+import dotenv from "dotenv";
+import connectDb from "./database/db.js";
+import cors from "cors";
+import path from "path"
+dotenv.config();
+
 const app = express();
-const port = 5000;
 
+// using middleware with restricted CORS methods
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
+}));
 
-// Middleware setup
-const corsOptions = {
-  origin: 'https://chat-boat-jfcy.onrender.com', 
-  
-  
-  
-  // React app is assumed to run on this port
-  methods: 'GET, POST, PUT, DELETE',  // Allowed HTTP methods
-  // allowedHeaders: 'Content-Type, Authorization',  // Allowed headers
-};
-
-app.use(cors(corsOptions));  // Apply CORS configuration
 app.use(express.json());
 
+//importing routes
+import userRoutes from "./routes/userRoutes.js";
+import chatRoutes from "./routes/chatRoutes.js";
+
+//using routes
+app.use("/api/user", userRoutes);
+app.use("/api/chat", chatRoutes);
 // Define the path to your client build folder
 const _dirname = path.resolve();
-
-// API Routes
-const apiRoute = require('./routes/api');
-app.use('/api', apiRoute);  // This should come first to avoid being caught by the wildcard route
 
 // Serve static files from the 'client/dist' folder
 app.use(express.static(path.join(_dirname, 'client', 'dist')));
@@ -34,12 +34,7 @@ app.use((req, res, next) => {
   res.sendFile(path.join(_dirname, 'client', 'dist', 'index.html'));
 });
 
-// // Handle React routing (this fixes your crash)
-// app.use((req, res) => {
-//   res.sendFile(path.join(_dirname, 'client', 'dist', 'index.html'));
-// });
-
-// Start the server
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+app.listen(process.env.PORT, () => {
+  console.log(`server is working on port ${process.env.PORT}`);
+  connectDb();
 });
